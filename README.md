@@ -37,3 +37,18 @@ Python, pandas, matplotlib, Jupyter Notebook
 
 ## Status
 Research project / academic portfolio
+
+## 🤖 LLM-based Content Classification
+
+This project now includes AI-powered classification of university content using OpenAI API.
+
+### Features:
+- Automatic categorization of content
+- Multi-label classification
+- Category analytics
+
+### Usage:
+
+1. Run classification:
+```bash
+python classify_dataset.py
