@@ -1,54 +1,141 @@
-# AI University Content Analysis
+University Content Intelligence
 
-## Project Overview
-This research project analyzes AI-oriented content published on official university websites.
-The study focuses on content structure, temporal dynamics, institutional profiles, and language representation,
-with particular attention to the presence of the Kazakh language in AI-related materials.
+A Python toolkit for collecting, classifying, and analyzing university web content using large language models (LLMs) and natural language processing (NLP).
 
-## Data
-The dataset consists of university website pages containing AI-related content.
-For each page, the following attributes were analyzed:
-- publication year
-- content type
-- text volume
-- language
-- institutional affiliation
+This project was developed to support research into how universities communicate about artificial intelligence, digital technologies, research, and educational initiatives. It combines automated content processing with AI-assisted classification to transform large collections of web pages into structured datasets suitable for statistical analysis.
 
-Special methodological attention is given to detecting Kazakh language content,
-including cases where it is implicitly embedded in Cyrillic texts
-automatically classified as Russian.
+⸻
 
-## Methodology
-The analysis combines:
-- web content analysis of university websites
-- NLP-based language detection with Kazakh-specific heuristics
-- classification of AI content by type
-- dynamic and comparative institutional analysis
+Why this project exists
 
-## Key Findings
-- AI-related content is predominantly news- and education-oriented
-- Research and strategy-driven AI content is limited
-- A sharp increase in AI publications is observed in the 2020s
-- Kazakh language content exists but is often not institutionally formalized
-  as a separate language version on university websites
+Universities publish thousands of pages covering research, education, events, and institutional news. While collecting this information is relatively straightforward, understanding it at scale is much more difficult.
 
-## Technologies
-Python, pandas, matplotlib, Jupyter Notebook
+This project addresses that challenge by providing a reproducible workflow that:
 
-## Status
-Research project / academic portfolio
+* processes university website content;
+* prepares multilingual text for analysis;
+* classifies documents using LLMs;
+* validates generated labels;
+* produces structured datasets for further statistical analysis.
 
-## 🤖 LLM-based Content Classification
+The repository was originally created for academic research and has evolved into a reusable Python package.
 
-This project now includes AI-powered classification of university content using OpenAI API.
+⸻
 
-### Features:
-- Automatic categorization of content
-- Multi-label classification
-- Category analytics
+Features
 
-### Usage:
+* AI-powered multi-label document classification
+* Support for multilingual university content
+* Configurable taxonomy
+* Automated dataset processing
+* Built-in validation of generated labels
+* Analytical summaries of classified data
+* Modular package architecture
+* Reusable Python API
 
-1. Run classification:
-```bash
+⸻
+
+Example workflow
+
+University Websites
+        │
+        ▼
+Content Collection
+        │
+        ▼
+Text Cleaning
+        │
+        ▼
+LLM Classification
+        │
+        ▼
+Label Validation
+        │
+        ▼
+Dataset Generation
+        │
+        ▼
+Statistical Analysis
+
+⸻
+
+Project structure
+
+src/
+└── university_content_analysis/
+    ├── analytics.py
+    ├── classifier.py
+    ├── cli.py
+    ├── config.py
+    ├── refiner.py
+    ├── taxonomy.py
+    └── utils.py
+data/
+docs/
+notebooks/
+outputs/
+tests/
+
+⸻
+
+Installation
+
+git clone https://github.com/<your-username>/ai-university-content-analysis.git
+cd ai-university-content-analysis
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+
+⸻
+
+Quick Start
+
+Classify a dataset:
+
 python classify_dataset.py
+
+Import the package:
+
+from university_content_analysis.analytics import calculate_label_counts
+
+⸻
+
+Technologies
+
+* Python 3.11+
+* OpenAI API
+* pandas
+* Natural Language Processing
+* Large Language Models (LLMs)
+
+⸻
+
+Roadmap
+
+* Package-based classification pipeline
+* Command-line interface
+* Automated testing
+* GitHub Actions
+* Documentation website
+* Performance benchmarking
+* Additional language support
+* Interactive dashboards
+
+⸻
+
+Research Applications
+
+This project can support:
+
+* computational social science;
+* higher education research;
+* university benchmarking;
+* science policy analysis;
+* digital transformation studies;
+* AI adoption research.
+
+⸻
+
+License
+
+Released under the MIT License.

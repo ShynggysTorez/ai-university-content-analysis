@@ -1,78 +1,49 @@
-"""
-Text preprocessing utilities.
-
-This module contains reusable functions for preparing raw text before it is
-sent to an LLM or analytical pipeline.
-"""
+"""Text preprocessing utilities."""
 
 from __future__ import annotations
 
+import math
 import re
+from typing import Any
 
 
-def normalize_text(text: str | None) -> str:
-    """
-    Normalize whitespace and safely handle missing values.
+def normalize_text(value: Any) -> str:
+    """Convert a value to clean text and normalize whitespace."""
 
-    Parameters
-    ----------
-    text
-        Input text.
-
-    Returns
-    -------
-    str
-        Cleaned text.
-    """
-
-    if text is None:
+    if value is None:
         return ""
 
-    text = str(text)
+    if isinstance(value, float) and math.isnan(value):
+        return ""
 
-    text = text.replace("\r", " ")
-    text = text.replace("\n", " ")
-
+    text = str(value)
+    text = text.replace("\r", " ").replace("\n", " ")
     text = re.sub(r"\s+", " ", text)
 
     return text.strip()
 
 
-def truncate_text(
-    text: str,
-    max_chars: int = 12000,
-) -> str:
-    """
-    Truncate text to the specified maximum number of characters.
-    """
+def truncate_text(text: str, max_chars: int = 12_000) -> str:
+    """Limit text to a maximum number of characters."""
 
-    if len(text) <= max_chars:
-        return text
+    if max_chars <= 0:
+        raise ValueError("max_chars must be greater than zero.")
 
     return text[:max_chars]
 
 
 def build_document(
-    title: str | None,
-    url: str | None,
-    content: str | None,
-    max_chars: int = 12000,
+    title: Any,
+    url: Any,
+    content: Any,
+    max_chars: int = 12_000,
 ) -> str:
-    """
-    Build a formatted document that will be passed to the LLM.
-    """
+    """Combine page metadata and content into one classification document."""
 
-    title = normalize_text(title)
-    url = normalize_text(url)
-    content = truncate_text(
-        normalize_text(content),
-        max_chars=max_chars,
-    )
+    clean_title = normalize_text(title)
+    clean_url = normalize_text(url)
+    clean_content = truncate_text(normalize_text(content), max_chars)
 
-    return f"""Title: {title}
-
-URL: {url}
-
-Content:
-{content}
-""".strip()
+    return (
+        f"Title: {clean_title}\n\nURL: {clean_url}\n\nContent:\n{clean_content}"
+    ).strip()

@@ -1,77 +1,51 @@
-"""
-Prompt templates for LLM classification.
-
-Keeping prompts separate from business logic makes them easier to
-maintain, test, and improve independently.
-"""
+"""Prompt construction for multi-label classification."""
 
 from __future__ import annotations
 
-DEFAULT_MAX_CHARS = 12000
+from collections.abc import Sequence
 
-DEFAULT_CATEGORIES = [
-    "Educational Programs and Curricula",
-    "Teaching and Faculty Development",
-    "Artificial Intelligence in Education",
-    "Data Science and Analytics",
-    "Software Development and Programming",
-    "Cybersecurity and Information Protection",
-    "Digital Transformation and E-Government",
-    "Research and Academic Events",
-    "Innovation and Startups",
-    "Healthcare Technology",
-    "Natural Language Processing",
-    "Institutional News and Announcements",
-]
+from .taxonomy import DEFAULT_CATEGORIES
 
 
-def format_categories(categories: list[str]) -> str:
-    """Return a formatted category list."""
+def format_categories(categories: Sequence[str]) -> str:
+    """Format category names as a readable bullet list."""
 
     return "\n".join(f"- {category}" for category in categories)
 
 
 def build_classification_prompt(
     text: str,
-    categories: list[str] | None = None,
-    max_chars: int = DEFAULT_MAX_CHARS,
+    categories: Sequence[str] = DEFAULT_CATEGORIES,
+    max_chars: int = 12_000,
 ) -> str:
-    """
-    Build the prompt sent to the language model.
-    """
+    """Create the user prompt sent to the language model."""
 
-    if categories is None:
-        categories = DEFAULT_CATEGORIES
+    if max_chars <= 0:
+        raise ValueError("max_chars must be greater than zero.")
 
-    text = (text or "").strip()
-
-    if len(text) > max_chars:
-        text = text[:max_chars]
+    clean_text = (text or "").strip()[:max_chars]
 
     return f"""
 You are classifying documents from an academic dataset.
 
-Categories:
+Choose labels only from this taxonomy:
 {format_categories(categories)}
 
-Text:
+Document:
 \"\"\"
-{text}
+{clean_text}
 \"\"\"
 
-Task:
-Assign the MOST relevant categories.
+Assign the most relevant categories.
 
 Rules:
-
-- Select no more than THREE categories.
-- Prefer one or two categories whenever possible.
+- Select no more than three categories.
+- Prefer one or two categories when possible.
 - Do not invent categories.
-- Do not assign irrelevant labels.
-- Return ONLY valid JSON.
-- The "labels" field must be a JSON array.
+- Do not include irrelevant labels.
+- Return only valid JSON.
+- The "labels" value must be a JSON array.
 
-Example:
-
+Required format:
 {{"labels": ["Research and Academic Events"]}}
 """.strip()
