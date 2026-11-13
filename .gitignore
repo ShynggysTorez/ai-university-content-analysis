@@ -40,5 +40,30 @@ htmlcov/
 # Ruff
 .ruff_cache/
 
+# PyPI configuration file
+.pypirc
+
+# Cursor
+#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
+#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+
+# Marimo
+marimo/_static/
+marimo/_lsp/
+__marimo__/
+
+# KZ 2026 — large local data (not for git)
+data_kz_v2/
+kz_ai_v2_final.json
+kz_ai_v2_final.csv
+analysis/parts/
+analysis/*.parquet
+analysis/build.log
+kz_2026/work/
+.DS_Store
+_to_delete/
 # MyPy
 .mypy_cache/
