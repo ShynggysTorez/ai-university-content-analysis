@@ -205,3 +205,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# KZ 2026 — large local data (not for git)
+data_kz_v2/
+kz_ai_v2_final.json
+kz_ai_v2_final.csv
+analysis/parts/
+analysis/*.parquet
+analysis/build.log
+kz_2026/work/
+.DS_Store
+_to_delete/
