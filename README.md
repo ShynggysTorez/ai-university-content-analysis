@@ -1,54 +1,188 @@
-# AI University Content Analysis
+# University Content Intelligence
 
-## Project Overview
-This research project analyzes AI-oriented content published on official university websites.
-The study focuses on content structure, temporal dynamics, institutional profiles, and language representation,
-with particular attention to the presence of the Kazakh language in AI-related materials.
+A Python toolkit for collecting, classifying, and analyzing university web content using Large Language Models (LLMs).
 
-## Data
-The dataset consists of university website pages containing AI-related content.
-For each page, the following attributes were analyzed:
-- publication year
-- content type
-- text volume
-- language
-- institutional affiliation
+I built this project while working on research focused on how universities communicate about artificial intelligence, research, digital transformation, and education. After using the code on several datasets, I decided to refactor it into a reusable Python package that can be applied to similar research projects.
 
-Special methodological attention is given to detecting Kazakh language content,
-including cases where it is implicitly embedded in Cyrillic texts
-automatically classified as Russian.
+The goal of the project is simple: automate the process of turning large collections of university web pages into structured datasets that are ready for statistical analysis.
 
-## Methodology
-The analysis combines:
-- web content analysis of university websites
-- NLP-based language detection with Kazakh-specific heuristics
-- classification of AI content by type
-- dynamic and comparative institutional analysis
+---
 
-## Key Findings
-- AI-related content is predominantly news- and education-oriented
-- Research and strategy-driven AI content is limited
-- A sharp increase in AI publications is observed in the 2020s
-- Kazakh language content exists but is often not institutionally formalized
-  as a separate language version on university websites
+## What it does
 
-## Technologies
-Python, pandas, matplotlib, Jupyter Notebook
+The workflow consists of several steps:
 
-## Status
-Research project / academic portfolio
+- collect university web content;
+- clean and prepare multilingual text;
+- classify documents using an LLM;
+- validate generated labels;
+- export a structured dataset for further analysis.
 
-## 🤖 LLM-based Content Classification
+---
 
-This project now includes AI-powered classification of university content using OpenAI API.
+## Features
 
-### Features:
-- Automatic categorization of content
-- Multi-label classification
-- Category analytics
+- AI-powered multi-label document classification
+- Support for multilingual university content
+- Configurable taxonomy
+- Automated dataset processing
+- Label validation
+- Analytical summaries
+- Command-line interface
+- Reusable Python package
 
-### Usage:
+---
 
-1. Run classification:
+## Workflow
+
+```text
+University Websites
+        │
+        ▼
+Content Collection
+        │
+        ▼
+Text Preprocessing
+        │
+        ▼
+LLM Classification
+        │
+        ▼
+Label Validation
+        │
+        ▼
+Structured Dataset
+        │
+        ▼
+Statistical Analysis
+```
+
+---
+
+## Project Structure
+
+```text
+ai-university-content-analysis/
+│
+├── src/
+│   └── university_content_analysis/
+│       ├── analytics.py
+│       ├── classifier.py
+│       ├── cli.py
+│       ├── config.py
+│       ├── llm_client.py
+│       ├── refiner.py
+│       ├── taxonomy.py
+│       └── utils.py
+│
+├── data/
+├── docs/
+├── notebooks/
+├── outputs/
+├── tests/
+│
+├── classify_dataset.py
+├── analyze.py
+├── refine.py
+├── pyproject.toml
+└── README.md
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/ShynggysTorez/ai-university-content-analysis.git
+
+cd ai-university-content-analysis
+
+python -m venv .venv
+
+source .venv/bin/activate        # Linux/macOS
+# .venv\Scripts\activate         # Windows
+
+pip install -e .
+```
+
+---
+
+## Quick Start
+
+Classify a dataset:
+
 ```bash
 python classify_dataset.py
+```
+
+or use the CLI:
+
+```bash
+uca classify
+```
+
+Analyze the classified dataset:
+
+```bash
+uca analyze
+```
+
+Example of using the package in Python:
+
+```python
+from university_content_analysis.analytics import calculate_label_counts
+
+calculate_label_counts("classified_dataset.csv")
+```
+
+---
+
+## Technologies
+
+- Python 3.11+
+- OpenAI API
+- pandas
+- pytest
+- Ruff
+- GitHub Actions
+
+---
+
+## Typical Use Cases
+
+Although I originally developed this project for university research, it can also be useful for:
+
+- Computational Social Science
+- Higher Education Analytics
+- Science Policy Research
+- AI Adoption Studies
+- Digital Transformation Research
+- Content Analysis Projects
+
+---
+
+## Current Status
+
+**Version:** 1.0.0
+
+Implemented:
+
+- Modular package architecture
+- LLM-based document classification
+- Dataset analytics
+- Command-line interface
+- Automated testing
+- Continuous Integration (GitHub Actions)
+
+Planned improvements:
+
+- Better benchmarking
+- Additional language support
+- Interactive visualizations
+- Extended taxonomy management
+
+---
+
+## License
+
+This project is released under the MIT License.
